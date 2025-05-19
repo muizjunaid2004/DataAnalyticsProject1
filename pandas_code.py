@@ -30,11 +30,17 @@ df['AwayPoints'] = np.where(
 )
 
 
-#Calculating total points for home team
-home_pts = df.groupby('HomeTeam')['HomePoints'].sum().sort_values(ascending=False).rename('TotalHomePoints')
-print(home_pts)
 
-#Calculating points for away team
+
+'''
+TEAM POINTS HOME, AWAY AND TOTAL BELOW
+
+'''
+
+#Calculating total points at home
+home_pts = df.groupby('HomeTeam')['HomePoints'].sum().sort_values(ascending=False).rename('TotalHomePoints')
+
+#Calculating points away 
 away_pts = df.groupby('AwayTeam')['AwayPoints'].sum().sort_values(ascending=False).rename('TotalAwayPoints')
 
 #Creating new Df with home points, away points and total points
@@ -42,8 +48,70 @@ df2 = pd.concat([home_pts, away_pts], axis=1)
 df2['TotalPoints'] = df2['TotalHomePoints'] + df2['TotalAwayPoints']
 df2 = df2.head(6)
 
-print(df2)
-
-
+#Plotting df2
 df2.plot(kind='bar', title='Big 6 Points Summary', xlabel='Teams', ylabel='Points')
 plt.show()
+
+
+
+
+'''
+NUMBER OF WINS AND DRAWS (HOME AND AWAY) AND TOTAL 
+'''
+
+#Calculating number of home wins
+home_wins = df[df['HomePoints'] > 1].groupby('HomeTeam')['HomePoints'].count().sort_values(ascending=False).rename('TotalHomeWins')
+
+#Calculating number of away wins
+away_wins = df[df['AwayPoints'] > 1].groupby('AwayTeam')['AwayPoints'].count().rename('TotalAwayWins')
+
+
+
+#Calculating the number of draws at home
+home_draws = df[(df['HomePoints'] == 1)].groupby('HomeTeam')['HomePoints'].count().rename('TotalHomeDraws')
+
+#Calculating numbr of away draws
+away_draws = df[(df['HomePoints'] == 1)].groupby('AwayTeam')['AwayPoints'].count().rename('TotalAwayDraws')
+
+#Creating new Df to house wins both home and away and draws both home and away
+df3 = pd.concat([home_wins, away_wins, home_draws, away_draws], axis=1)
+df3.fillna(0, inplace=True)
+
+#Changing columns from float back to int
+df3_columns = df3.columns.to_list()
+for col in df3_columns:
+    df3[col] = df3[col].astype(int)
+    
+df3['TotalWins'] = df3['TotalHomeWins'] + df3['TotalAwayWins']
+df3['TotalDraws'] = df3['TotalHomeDraws'] + df3['TotalAwayDraws']
+
+df3 = df3.head(6)
+
+#Plotting all win data
+df3[['TotalHomeWins', 'TotalAwayWins', 'TotalWins']].plot(kind='bar', title='Big 6 Wins Stats', xlabel='Teams', ylabel='Points')
+plt.show()
+
+#Plotting all Draw Data
+df3[['TotalHomeDraws', 'TotalAwayDraws', 'TotalDraws']].plot(kind='bar', title='Big 6 Draw Stats', xlabel='Teams', ylabel='Points')
+plt.show()
+
+
+
+'''
+NUMBER OF LOSSES (HOME AND AWAY)
+'''
+#Calculating number of home wins
+home_losses = df[df['HomePoints'] == 0].groupby('HomeTeam')['HomePoints'].count().sort_values(ascending=False).rename('TotalHomeLosses')
+
+#Calculating number of away wins
+away_losses = df[df['AwayPoints'] == 0].groupby('AwayTeam')['AwayPoints'].count().rename('TotalAwayLosses')
+
+df4 = pd.concat([home_losses, away_losses], axis=1)
+df4['Total Losses'] = df4['TotalHomeLosses'] + df4['TotalAwayLosses']
+df4 = df4.loc[big_6]
+print(df4)
+
+df4.plot(kind='bar', title='Big 6 Losses Stats', xlabel='Teams', ylabel='Points')
+plt.show()
+
+
