@@ -50,7 +50,7 @@ df2['TotalPoints'] = df2['TotalHomePoints'] + df2['TotalAwayPoints']
 df2 = df2.head(6)
 
 #Plotting df2
-df2.plot(kind='bar', title='Big 6 Points Summary', xlabel='Teams', ylabel='Points')
+#df2.plot(kind='bar', title='Big 6 Points Summary', xlabel='Teams', ylabel='Points')
 #plt.show()
 
 
@@ -89,11 +89,11 @@ df3['TotalDraws'] = df3['TotalHomeDraws'] + df3['TotalAwayDraws']
 df3 = df3.loc[big_6]
 
 #Plotting all win data
-df3[['TotalHomeWins', 'TotalAwayWins', 'TotalWins']].plot(kind='bar', title='Big 6 Wins Stats', xlabel='Teams', ylabel='Points')
+#df3[['TotalHomeWins', 'TotalAwayWins', 'TotalWins']].plot(kind='bar', title='Big 6 Wins Stats', xlabel='Teams', ylabel='Points')
 #plt.show()
 
 #Plotting all Draw Data
-df3[['TotalHomeDraws', 'TotalAwayDraws', 'TotalDraws']].plot(kind='bar', title='Big 6 Draw Stats', xlabel='Teams', ylabel='Points')
+#df3[['TotalHomeDraws', 'TotalAwayDraws', 'TotalDraws']].plot(kind='bar', title='Big 6 Draw Stats', xlabel='Teams', ylabel='Points')
 #plt.show()
 
 
@@ -112,7 +112,7 @@ df4 = pd.concat([home_losses, away_losses], axis=1)
 df4['TotalLosses'] = df4['TotalHomeLosses'] + df4['TotalAwayLosses']
 df4 = df4.loc[big_6]
 
-df4.plot(kind='bar', title='Big 6 Losses Stats', xlabel='Teams', ylabel='Points')
+#df4.plot(kind='bar', title='Big 6 Losses Stats', xlabel='Teams', ylabel='Points')
 #plt.show()
 
 
@@ -134,6 +134,35 @@ df5 = df3[['WinPercentage', 'DrawPercentage']].copy()
 df5['LossPercentage'] = df4['LossPercentage']
 
 
-df5.plot(kind='bar', legend='true', title='Big 6 Win Loss Draw Percentages', xlabel='Teams', ylabel='Percentage')
-plt.show()
+#df5.plot(kind='bar', legend='true', title='Big 6 Win Loss Draw Percentages', xlabel='Teams', ylabel='Percentage')
+#plt.show()
 
+
+
+'''
+CALCULATING POINTS PER SEASON FOR TOP6
+'''
+
+#Calculating home points per season
+home_pts = df.groupby(['Season','HomeTeam'])['HomePoints'].sum().rename('TotalHomePoints')
+home_pts.index.names = ['Season', 'Team']
+
+#Calculating away points per season
+away_pts = df.groupby(['Season','AwayTeam'])['AwayPoints'].sum().rename('TotalAwayPoints')
+away_pts.index.names = ['Season', 'Team']
+
+df6 = pd.concat([home_pts, away_pts], axis=1)
+df6['TotalPoints'] = df6['TotalHomePoints'] + df6['TotalAwayPoints']
+
+
+#Creating pivot tables so I can graph data
+df6 = df6.reset_index()
+df6 = df6.fillna(0)
+
+pivot_table = df6[df6['Team'].isin(big_6)].pivot_table(index='Season', columns='Team', values='TotalPoints')
+pivot_table.fillna(0, inplace=True)
+print(type(pivot_table))
+pivot_table.plot(marker= 'o', title='Big 6 Points over seasons', xlabel='Year', ylabel='Points')
+print(pivot_table)
+
+plt.show()
