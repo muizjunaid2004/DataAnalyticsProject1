@@ -12,6 +12,7 @@ df = df[df['HomeTeam'].isin(big_6) | df['AwayTeam'].isin(big_6)]
 #Converting to date for easier filtering
 df['Date'] = pd.to_datetime(df['Date'])
 
+
 #Making new column for home points
 df['HomePoints'] = np.where(
 
@@ -50,7 +51,7 @@ df2 = df2.head(6)
 
 #Plotting df2
 df2.plot(kind='bar', title='Big 6 Points Summary', xlabel='Teams', ylabel='Points')
-plt.show()
+#plt.show()
 
 
 
@@ -85,15 +86,15 @@ for col in df3_columns:
 df3['TotalWins'] = df3['TotalHomeWins'] + df3['TotalAwayWins']
 df3['TotalDraws'] = df3['TotalHomeDraws'] + df3['TotalAwayDraws']
 
-df3 = df3.head(6)
+df3 = df3.loc[big_6]
 
 #Plotting all win data
 df3[['TotalHomeWins', 'TotalAwayWins', 'TotalWins']].plot(kind='bar', title='Big 6 Wins Stats', xlabel='Teams', ylabel='Points')
-plt.show()
+#plt.show()
 
 #Plotting all Draw Data
 df3[['TotalHomeDraws', 'TotalAwayDraws', 'TotalDraws']].plot(kind='bar', title='Big 6 Draw Stats', xlabel='Teams', ylabel='Points')
-plt.show()
+#plt.show()
 
 
 
@@ -106,12 +107,33 @@ home_losses = df[df['HomePoints'] == 0].groupby('HomeTeam')['HomePoints'].count(
 #Calculating number of away wins
 away_losses = df[df['AwayPoints'] == 0].groupby('AwayTeam')['AwayPoints'].count().rename('TotalAwayLosses')
 
+#Creating new DF for loss data
 df4 = pd.concat([home_losses, away_losses], axis=1)
-df4['Total Losses'] = df4['TotalHomeLosses'] + df4['TotalAwayLosses']
+df4['TotalLosses'] = df4['TotalHomeLosses'] + df4['TotalAwayLosses']
 df4 = df4.loc[big_6]
-print(df4)
 
 df4.plot(kind='bar', title='Big 6 Losses Stats', xlabel='Teams', ylabel='Points')
-plt.show()
+#plt.show()
 
+
+
+'''
+GETTING NUMBER OF WINS DRAWS AND LOSSES AS A PERCENT OF GAMES
+'''
+
+total_games_played = df3['TotalWins'] + df3['TotalDraws'] + df4['TotalLosses']
+
+df3['TotalGamesPlayed'] = total_games_played
+df3['WinPercentage'] = (df3['TotalWins']/df3['TotalGamesPlayed']) * 100
+df3['DrawPercentage'] = (df3['TotalDraws']/df3['TotalGamesPlayed']) * 100
+
+df4['TotalGamesPlayed'] = total_games_played
+df4['LossPercentage'] = (df4['TotalLosses']/df4['TotalGamesPlayed']) * 100
+
+df5 = df3[['WinPercentage', 'DrawPercentage']].copy()
+df5['LossPercentage'] = df4['LossPercentage']
+
+
+df5.plot(kind='bar', legend='true', title='Big 6 Win Loss Draw Percentages', xlabel='Teams', ylabel='Percentage')
+plt.show()
 
