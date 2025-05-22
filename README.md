@@ -14,7 +14,8 @@ Before diving into a deeper analysis I wanted to look at some what I would say i
 
 ![Points Summary](https://github.com/user-attachments/assets/dc7c465f-55dc-4931-a94c-9326ce5a1339)
 
-![Man Utd Man City](https://github.com/user-attachments/assets/5d36e030-0c66-4d2c-b89c-6b867cdc8894)
+
+![Points Over Seasons](https://github.com/user-attachments/assets/cafd6e78-ef24-46f6-8880-ebebda00cd53)
 
 
 ![Figure_5](https://github.com/user-attachments/assets/83d37913-8778-4163-b6db-fcaa267995bf)
