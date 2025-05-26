@@ -16,7 +16,7 @@ Tools used: Python (Pandas), Power BI
 
 
 
-### Statistics Summary's of the Big 6
+## Statistics Summary's of the Big 6
 
 Here are some graphs I generated, with some summary data related to the big 6. 
 
@@ -29,7 +29,7 @@ Here are some graphs I generated, with some summary data related to the big 6.
 ![Figure_5](https://github.com/user-attachments/assets/83d37913-8778-4163-b6db-fcaa267995bf)
 
 
-### A Look at the Big 6's Premier League Journeys
+## A Look at the Big 6's Premier League Journeys
 
 
 Manchester United - A team that has gone from sheer dominance to a decline. They are the most decorated club in Premier League history, with 13 titles, a feat achieved thanks to the effort of the legendary Manchester United Manager Sir Alex Ferguson, who managed Manchester United from 1986 to 2013, even before the Premier League was launched. Manchester United have fallen off their peak, since his retirement. Their average points a season were 79.4 from 1993 to 2003, then increased to 84.4 from 2003 to 2014, but fell down quite signifigantly to 68.1 from 2014 to 2024. This can be traced to areas such as poor recruitment, high manager turnover (10 managers since Sir Alex's retirement) and as fans and media would say, treating the club more like a business than a football club. Even with this drop off in average points a season, United are still the team with the highest win percentage at 59.69 % and the lowest loss percentage of 18.54 % in Premier League history. This is a testament to Sir Alex's vision, impact and methods (look up his famous hairdryer treatemnt), transforming Manchester United into a true powerhouse.
