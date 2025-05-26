@@ -146,8 +146,10 @@ df5 = df3[['WinPercentage', 'DrawPercentage']].copy()
 df5['LossPercentage'] = df4['LossPercentage']
 df5['WinPercentage']= df5['WinPercentage'].sort_values(ascending=False)
 
+print(df5)
+
 df5.plot(kind='bar', legend='true', title='Big 6 Win Loss Draw Percentages', xlabel='Teams', ylabel='Percentage')
-plt.show()
+#plt.show()
 
 
 '''
@@ -166,6 +168,7 @@ df6 = pd.concat([home_pts, away_pts], axis=1)
 df6['TotalPoints'] = df6['TotalHomePoints'] + df6['TotalAwayPoints']
 
 
+
 #Creating pivot tables so I can graph data
 df6 = df6.reset_index()
 df6 = df6.fillna(0)
@@ -173,7 +176,8 @@ df6 = df6.fillna(0)
 
 pivot_table = df6[df6['Team'].isin(big_6)].pivot_table(index='Season', columns='Team', values='TotalPoints')
 pivot_table.fillna(0, inplace=True)
-pivot_table[['Man United', 'Man City']].plot(marker= 'o', title='Man Utd & Man City Points Over the Years', xlabel='Year', ylabel='Points')
+
+pivot_table.plot(marker= 'o', title='Man Utd & Man City Points Over the Years', xlabel='Year', ylabel='Points')
 
 
 
@@ -196,19 +200,42 @@ period_3 = [
 
 Overall = []
 new_df = pivot_table.reset_index()
+print(new_df)
 
 
 new_df_1 = new_df[new_df['Season'].isin(period_1)]
 new_df_2 = new_df[new_df['Season'].isin(period_2)]
 new_df_3 = new_df[new_df['Season'].isin(period_3)]    
 average_pts = []
-val = new_df_1['Man United'].mean()
-val2 = new_df_2['Man United'].mean()
-val3 = new_df_3['Man United'].mean()
+val = new_df_1['Liverpool'].mean()
+val2 = new_df_2['Liverpool'].mean()
+val3 = new_df_3['Liverpool'].mean()
 print(val, val2, val3)
 
 
 
 '''
-Finding which club finished First in each Pl season
+Liverpool specific
 '''
+
+
+df = pd.read_csv('EPL Standings 2000-2022.csv')
+
+df_liverpool = df[df['Team'] == 'Liverpool']
+print(len(df_liverpool.columns))
+df_liverpool.loc[len(df_liverpool)] = {
+    "Season": "2022-23", 
+    "Pos": 5, 
+    "Team": "Liverpool", 
+    "Pts": 67
+    }
+
+df_liverpool.loc[len(df_liverpool)] = {
+    "Season": "2023-24", 
+    "Pos": 3, 
+    "Team": "Liverpool", 
+    "Pts": 82
+    }
+
+print(df_liverpool)
+
