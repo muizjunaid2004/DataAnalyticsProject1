@@ -142,6 +142,7 @@ df4['LossPercentage'] = (df4['TotalLosses']/df4['TotalGamesPlayed']) * 100
 df5 = df3[['WinPercentage', 'DrawPercentage']].copy()
 df5['LossPercentage'] = df4['LossPercentage']
 df5['WinPercentage']= df5['WinPercentage'].sort_values(ascending=False)
+print(df5)
 
 
 df5.plot(kind='bar', legend='true', title='Big 6 Win Loss Draw Percentages', xlabel='Teams', ylabel='Percentage')
@@ -342,3 +343,64 @@ average_values('Arsenal')
 Spurs Specific
 '''
 
+df_spurs = df[df['Team'] == 'Tottenham Hotspur'].copy()
+
+df_spurs.loc[len(df_spurs)] = {
+    "Season": "2022-23", 
+    "Pos": 8, 
+    "Team": "Tottenham Hotspur", 
+    "Pts": 60
+    }
+
+df_spurs.loc[len(df_spurs)] = {
+    "Season": "2023-24", 
+    "Pos": 5, 
+    "Team": "Tottenham Hotspur", 
+    "Pts": 66
+    }
+
+
+df_spurs.loc[len(df_spurs)] = {
+    "Season": "2024-25", 
+    "Pos": 17, 
+    "Team": "Tottenham Hotspur", 
+    "Pts": 38
+    }
+
+print(df_spurs['Pos'].value_counts())
+print(df_spurs)
+
+average_values('Tottenham')
+
+'''
+Chelsea Specific
+'''
+
+df_chelsea = df[df['Team'] == 'Chelsea'].copy()
+
+df_chelsea.loc[len(df_chelsea)] = {
+    "Season": "2022-23", 
+    "Pos": 12, 
+    "Team": "Chelsea", 
+    "Pts": 44
+    }
+
+df_chelsea.loc[len(df_chelsea)] = {
+    "Season": "2023-24", 
+    "Pos": 6, 
+    "Team": "Chelsea", 
+    "Pts": 63
+    }
+
+
+df_chelsea.loc[len(df_chelsea)] = {
+    "Season": "2024-25", 
+    "Pos": 4, 
+    "Team": "chelsea", 
+    "Pts": 69
+    }
+
+print(df_chelsea['Pos'].value_counts())
+print(df_chelsea)
+
+average_values('Chelsea')
