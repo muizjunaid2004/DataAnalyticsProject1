@@ -2,7 +2,7 @@
 
 ### Disclaimer: All data sets used were publicly available on Kaggle, a trusted source, but regardless the data may not be 100 % perfect. There was missing data, which had to be filled in during my analysis.
 
-The goal of this project was to use data in storytelling of the Big 6 Premier League Clubs of (Manchester United, Manchester City, Liverpool, Arsenal, Chelsea, Tottenham Hotspur) for my first data analysis project, through the data analysis tools of Python and Power BI. I found a premier league data set on kaggle and combined with the python library pandas was able to gain meangful insights from the data set. Have a look at the code if interested there are comments explaining it. Also I used Power BI through tp create a dashboard of data findings related to Manchester United.
+The goal of this project was to use data in storytelling of the Big 6 Premier League Clubs of (Manchester United, Manchester City, Liverpool, Arsenal, Chelsea, Tottenham Hotspur) for my first data analysis project, through the data analysis tools of Python and Power BI. I found a premier league data set on kaggle and combined with the python library pandas was able to gain meangful insights from the data set. Have a look at the code if interested there are comments explaining it. Also I used Power BI through to create a dashboard of data findings related to Manchester United.
 
 Tools used: Python (Pandas), Power BI
 
