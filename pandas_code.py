@@ -124,9 +124,6 @@ df4 = df4.loc[big_6]
 
 
 
-'''
-Getting number of losses per season
-'''
 
 
 '''
@@ -146,7 +143,6 @@ df5 = df3[['WinPercentage', 'DrawPercentage']].copy()
 df5['LossPercentage'] = df4['LossPercentage']
 df5['WinPercentage']= df5['WinPercentage'].sort_values(ascending=False)
 
-print(df5)
 
 df5.plot(kind='bar', legend='true', title='Big 6 Win Loss Draw Percentages', xlabel='Teams', ylabel='Percentage')
 #plt.show()
@@ -180,7 +176,6 @@ pivot_table.fillna(0, inplace=True)
 pivot_table.plot(marker= 'o', title='Man Utd & Man City Points Over the Years', xlabel='Year', ylabel='Points')
 
 
-
 #Average points for teams in between years 1993-2003, 2003-2013, 2013-2023
 period_1 = [
     "1993-1994", "1994-1995", "1995-1996", "1996-1997", "1997-1998",
@@ -198,19 +193,17 @@ period_3 = [
     "2023-2024"
 ]
 
-Overall = []
 new_df = pivot_table.reset_index()
-print(new_df)
 
+def average_values(team, df=new_df):
 
-new_df_1 = new_df[new_df['Season'].isin(period_1)]
-new_df_2 = new_df[new_df['Season'].isin(period_2)]
-new_df_3 = new_df[new_df['Season'].isin(period_3)]    
-average_pts = []
-val = new_df_1['Liverpool'].mean()
-val2 = new_df_2['Liverpool'].mean()
-val3 = new_df_3['Liverpool'].mean()
-print(val, val2, val3)
+    new_df_1 = new_df[new_df['Season'].isin(period_1)]
+    new_df_2 = new_df[new_df['Season'].isin(period_2)]
+    new_df_3 = new_df[new_df['Season'].isin(period_3)]    
+    val = new_df_1[team].mean()
+    val2 = new_df_2[team].mean()
+    val3 = new_df_3[team].mean()
+    print(f'\n\n\n\n{team}: 1993-2003:{val}, 2003:2013:{val2}, 2013-2024:{val3}\n\n\n\n')
 
 
 
@@ -220,9 +213,10 @@ Liverpool specific
 
 
 df = pd.read_csv('EPL Standings 2000-2022.csv')
+print(df)
 
-df_liverpool = df[df['Team'] == 'Liverpool']
-print(len(df_liverpool.columns))
+df_liverpool = df[df['Team'] == 'Liverpool'].copy()
+
 df_liverpool.loc[len(df_liverpool)] = {
     "Season": "2022-23", 
     "Pos": 5, 
@@ -237,5 +231,114 @@ df_liverpool.loc[len(df_liverpool)] = {
     "Pts": 82
     }
 
-print(df_liverpool)
+df_liverpool.loc[len(df_liverpool)] = {
+    "Season": "2024-25", 
+    "Pos": 1, 
+    "Team": "Liverpool", 
+    "Pts": 84
+    }
+
+average_values('Liverpool')
+
+'''
+Man Utd Specific
+'''
+df_united = df[df['Team'] == 'Manchester United'].copy()
+df_united.loc[len(df_united)] = {
+    "Season": "2022-23", 
+    "Pos": 3, 
+    "Team": "Manchester United", 
+    "Pts": 75
+    }
+
+df_united.loc[len(df_united)] = {
+    "Season": "2023-24", 
+    "Pos": 8, 
+    "Team": "Manchester United", 
+    "Pts": 60
+    }
+
+df_united.loc[len(df_united)] = {
+    "Season": "2024-25", 
+    "Pos": 15, 
+    "Team": "Manchester United", 
+    "Pts": 42
+    }
+
+
+
+print(df_united['Pos'].value_counts())
+
+average_values('Man United')
+
+
+
+
+
+'''
+Man City Specific
+'''
+
+df_city = df[df['Team'] == 'Manchester City'].copy()
+df_city.loc[len(df_city)] = {
+    "Season": "2022-23", 
+    "Pos": 1, 
+    "Team": "Manchester City", 
+    "Pts": 89
+    }
+
+df_city.loc[len(df_city)] = {
+    "Season": "2023-24", 
+    "Pos": 1, 
+    "Team": "Manchester City", 
+    "Pts": 91
+    }
+
+
+df_city.loc[len(df_city)] = {
+    "Season": "2024-25", 
+    "Pos": 3, 
+    "Team": "Manchester City", 
+    "Pts": 71
+    }
+
+print(df_city['Pos'].value_counts())
+
+average_values('Man City')
+
+'''
+Arsenal Specific
+'''
+
+df_arsenal = df[df['Team'] == 'Arsenal'].copy()
+df_arsenal.loc[len(df_arsenal)] = {
+    "Season": "2022-23", 
+    "Pos": 2, 
+    "Team": "Arsenal", 
+    "Pts": 84
+    }
+
+df_arsenal.loc[len(df_arsenal)] = {
+    "Season": "2023-24", 
+    "Pos": 2, 
+    "Team": "Arsenal", 
+    "Pts": 89
+    }
+
+
+df_arsenal.loc[len(df_arsenal)] = {
+    "Season": "2024-25", 
+    "Pos": 2, 
+    "Team": "Arsenal", 
+    "Pts": 74
+    }
+
+print(df_arsenal['Pos'].value_counts())
+print(df_arsenal)
+
+average_values('Arsenal')
+
+'''
+Spurs Specific
+'''
 
